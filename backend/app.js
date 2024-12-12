@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 
 const app = express();
 const PORT = 3000;
@@ -12,6 +13,11 @@ app.post('/', (req, res)=>{
 })
 
 app.get('/hello', (req, res)=>{
+    res.set('Content-Type', 'text/html');
+    res.status(200).send("<h1>Hello GFG Learner!</h1>");
+});
+
+app.get('/getAnimeList', (req, res)=>{
     res.set('Content-Type', 'text/html');
     res.status(200).send("<h1>Hello GFG Learner!</h1>");
 });
