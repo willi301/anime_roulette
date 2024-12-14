@@ -33,12 +33,13 @@ app.get('/getGenreList', async (req, res)=>{
 });
 
 
-//api to send list of genres
+//api to generate random anime an send selected anime detail
 app.get('/getRandomAnime', async (req, res)=>{
     //get response from frontend
-    const genreid = "1,2";
+    const genreid = "1,2,3";
     let total, randomNumber;
 
+    //total count api
     try {
         //get total amount anime in specified genre
         //p.s for template literal ada bedanya antara ' and `
@@ -51,12 +52,35 @@ app.get('/getRandomAnime', async (req, res)=>{
         randomNumber = Math.floor(Math.random() * total) + 1;
 
         //return filtered response
-        res.json(randomNumber);
+        //res.json(randomNumber);
     }
     catch (error) {
-        console.error("Error fetching animes from Jikan API:", error.message);
-        res.status(500).json({ message: "Failed to fetch anime", error: error.message });
+        console.error("Error fetching anime total from Jikan API:", error.message);
+        res.status(500).json({ message: "Failed to fetch anime total", error: error.message });
     }
+
+
+
+    //get anime detail
+    try {
+        //get anime detail based on the mal_id
+        const response = await axios.get(`https://api.jikan.moe/v4/anime?genres=${genreid}&limit=1&page=${randomNumber}`);
+
+        // const englishTitle = response.data.title
+
+        // const animeDetail = {
+        //     imageLink: response.data.images.image_url,
+        //     animeTitle; response.data
+        // }
+        
+
+        res.json(response.data);
+    }
+    catch (error) {
+        console.error("Error fetching anime detail from Jikan API:", error.message);
+        res.status(500).json({ message: "Failed to fetch anime detail", error: error.message });
+    }
+
         
 });
 
