@@ -1,3 +1,3 @@
-export interface appModel {
+export interface AppModel {
     genres: string[];
 }
