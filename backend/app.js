@@ -33,6 +33,36 @@ app.get('/getGenreList', async (req, res)=>{
 });
 
 
+//api to send list of genres
+app.get('/getRandomAnime', async (req, res)=>{
+    //get response from frontend
+    const genreid = "1,2";
+    let total, randomNumber;
+
+    try {
+        //get total amount anime in specified genre
+        //p.s for template literal ada bedanya antara ' and `
+        const response = await axios.get(`https://api.jikan.moe/v4/anime?genres=${genreid}`);
+        
+        //get total number
+        total = response.data.pagination.items.total
+        
+        //generate random number between 1 and total amount
+        randomNumber = Math.floor(Math.random() * total) + 1;
+
+        //return filtered response
+        res.json(randomNumber);
+    }
+    catch (error) {
+        console.error("Error fetching animes from Jikan API:", error.message);
+        res.status(500).json({ message: "Failed to fetch anime", error: error.message });
+    }
+        
+});
+
+
+
+
 
 app.listen(PORT, (error) =>{
     if(!error)
