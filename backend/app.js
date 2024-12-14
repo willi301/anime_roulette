@@ -12,15 +12,19 @@ app.post('/', (req, res)=>{
     res.send(`Welcome ${name}`);
 })
 
-app.get('/hello', (req, res)=>{
-    res.set('Content-Type', 'text/html');
-    res.status(200).send("<h1>Hello GFG Learner!</h1>");
+app.get('/getGenreList', async (req, res)=>{
+    try {
+        const response = await axios.get('https://api.jikan.moe/v4/genres/anime');
+        res.json(response.data);
+    }
+    catch (error) {
+        console.error("Error fetching genres from Jikan API:", error.message);
+        res.status(500).json({ message: "Failed to fetch genres", error: error.message });
+    }
+        
 });
 
-app.get('/getAnimeList', (req, res)=>{
-    res.set('Content-Type', 'text/html');
-    res.status(200).send("<h1>Hello GFG Learner!</h1>");
-});
+
 
 app.listen(PORT, (error) =>{
     if(!error)
