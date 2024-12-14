@@ -66,15 +66,18 @@ app.get('/getRandomAnime', async (req, res)=>{
         //get anime detail based on the mal_id
         const response = await axios.get(`https://api.jikan.moe/v4/anime?genres=${genreid}&limit=1&page=${randomNumber}`);
 
-        // const englishTitle = response.data.title
-
-        // const animeDetail = {
-        //     imageLink: response.data.images.image_url,
-        //     animeTitle; response.data
-        // }
+        //put relevant detail to an object
+        const animeDetail = {
+            //since response is an array data needs to pick the 0 index
+            imageLink: response.data.data[0].images.image_url,
+            animeTitle: response.data.data[0].title_english,
+            score: response.data.data[0].score,
+            synopsis: response.data.data[0].synopsis,
+            link: response.data.data[0].url
+        };
         
 
-        res.json(response.data);
+        res.json(animeDetail);
     }
     catch (error) {
         console.error("Error fetching anime detail from Jikan API:", error.message);
