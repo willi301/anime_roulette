@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useEffect } from 'react';
 import TextField from '@mui/material/TextField/TextField';
 import { Autocomplete, Box, Button, Card, Typography } from '@mui/material';
 import { Controller, useForm } from "react-hook-form";
@@ -7,6 +8,29 @@ import { genreOptions } from '../constant/AppConstant';
 
 const App = () => {
   const [ isSubmit, setIsSubmit ] = useState<Boolean>(false);
+
+  //anime object
+  const[anime, setAnime] = useState({
+
+  });
+
+  // //get journal entries from database
+  // const getAnime = async (e) => {
+  //   try {
+
+  //   } catch (error) {
+
+  //   }
+  // };
+
+  useEffect(() => {
+    fetch('http://localhost:3000/getRandomAnime')
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+  }, []); 
+  //api call backend
+  
+
 
   const {
     control,

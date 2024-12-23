@@ -1,15 +1,26 @@
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors')
 
 const app = express();
 const PORT = 3000;
 
+let corsOptions = {
+    origin : ['http://localhost:5173'],
+ }
+// enabling CORS for any unknown origin(https://xyz.example.com)
+app.use(cors(corsOptions));
+
 //example on how to receive request and use the request
-app.use(express.json());
+//app.use(express.json());
 app.post('/', (req, res)=>{
     const {name} = req.body;
     
     res.send(`Welcome ${name}`);
+})
+
+app.post('/test', (req, res)=>{
+    res.json({message: "this connects"});
 })
 
 //api to send list of genres
@@ -36,9 +47,9 @@ app.get('/getGenreList', async (req, res)=>{
 //api to generate random anime an send selected anime detail
 app.get('/getRandomAnime', async (req, res)=>{
     //get response from frontend
-    const genreid = "1,2,3";
+    const genreid = "1";
     let total, randomNumber;
-
+    console.log('Request received at /getRandomAnime');
     //total count api
     try {
         //get total amount anime in specified genre
