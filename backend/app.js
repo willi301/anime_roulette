@@ -81,7 +81,7 @@ app.get('/getRandomAnime', async (req, res)=>{
         const animeDetail = {
             //since response is an array data needs to pick the 0 index
             imageLink: response.data.data[0].images.image_url,
-            animeTitle: response.data.data[0].title_english,
+            animeTitle: response.data.data[0].title,
             score: response.data.data[0].score,
             synopsis: response.data.data[0].synopsis,
             link: response.data.data[0].url
