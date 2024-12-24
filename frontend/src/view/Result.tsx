@@ -32,7 +32,7 @@ const Result: React.FC<ResultProps> = ({ isSubmit, anime }) => {
                             }}
                         >
                             <CardOverflow>
-                                <AspectRatio ratio="2">
+                                <AspectRatio ratio="1">
                                 <img
                                     src={anime.imageLink}
                                     loading="lazy"
