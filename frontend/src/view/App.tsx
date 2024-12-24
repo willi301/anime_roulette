@@ -7,6 +7,8 @@ import useAppHandler from '../handler/useAppHandler';
 import { AppModel } from '../type/AppModel';
 import Result from './Result';
 import { AnimeResponse } from '../type/AnimeResponse';
+import React from 'react';
+
 
 
 
@@ -58,7 +60,7 @@ const App = () => {
             width: '15%',
             cursor: "pointer"
             }}
-            alt="The house from the offer."
+            alt="cat logo."
             src="src\assets\cat.png"
         />
 
