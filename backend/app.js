@@ -12,7 +12,7 @@ let corsOptions = {
 app.use(cors(corsOptions));
 
 //example on how to receive request and use the request
-//app.use(express.json());
+app.use(express.json());
 app.post('/', (req, res)=>{
     const {name} = req.body;
     
@@ -70,21 +70,21 @@ app.get('/getRandomAnime', async (req, res)=>{
         res.status(500).json({ message: "Failed to fetch anime total", error: error.message });
     }
 
-
+    //console.log(response);
 
     //get anime detail
     try {
         //get anime detail based on the mal_id
-        const response = await axios.get(`https://api.jikan.moe/v4/anime?genres=${genreid}&limit=1&page=${randomNumber}`);
+        const response2 = await axios.get(`https://api.jikan.moe/v4/anime?genres=${genreid}&limit=1&page=${randomNumber}`);
 
         //put relevant detail to an object
         const animeDetail = {
             //since response is an array data needs to pick the 0 index
-            imageLink: response.data.data[0].images.image_url,
-            animeTitle: response.data.data[0].title,
-            score: response.data.data[0].score,
-            synopsis: response.data.data[0].synopsis,
-            link: response.data.data[0].url
+            imageLink: response2.data.data[0].images.image_url,
+            animeTitle: response2.data.data[0].title,
+            score: response2.data.data[0].score,
+            synopsis: response2.data.data[0].synopsis,
+            link: response2.data.data[0].url
         };
         
 

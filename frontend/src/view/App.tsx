@@ -11,7 +11,10 @@ const App = () => {
 
   //anime object
   const[anime, setAnime] = useState({
-
+      title: "",
+      score: "",
+      synopsis: "",
+      link: ""
   });
 
   // //get journal entries from database
@@ -23,12 +26,54 @@ const App = () => {
   //   }
   // };
 
-  useEffect(() => {
-    fetch('http://localhost:3000/getRandomAnime')
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-  }, []); 
-  //api call backend
+  // useEffect(() => {
+    async function getAnime() {
+      try {
+        const response = await fetch('http://localhost:3000/getRandomAnime', {
+            method: 'GET', // or 'POST', 'PUT', etc.
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        
+        const data = await response.json();
+
+        setAnime({
+          title: data.animeTitle,
+          score: data.score,
+          synopsis: data.synopsis,
+          link: data.link 
+        });
+
+        console.log('Data received:', data);
+        return data; // Return data for further processing
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+    }
+
+    //getAnime();
+
+  // }, []);
+
+
+
+  // useEffect(() => {
+  //   fetch('http://localhost:3000/getRandomAnime')
+  //   .then((res) => res.json())
+  //   .then((data) => console.log(data))
+
+
+  //   fetch('http://localhost:3000/getRandomAnime')
+  //   .then((res) => res.json())
+  //   .then((data) => console.log(data))
+  // }, []); 
+  // //api call backend
   
 
 
@@ -47,6 +92,7 @@ const App = () => {
   const onSubmit = (data: appModel) => {
     console.log("Form Data:", data);
     setIsSubmit(true);
+    getAnime().then(() => console.log('API call complete'));
   };
 
   return (
