@@ -47,9 +47,12 @@ app.get('/getGenreList', async (req, res)=>{
 //api to generate random anime an send selected anime detail
 app.post('/getRandomAnime', async (req, res)=>{
     //get response from frontend
+    console.log(req.body);
     const genreidList  = req.body;
 
-    const genreid = "1";
+    const stringResult = genreidList.join(',');
+    console.log("string version", stringResult);
+    const genreid = stringResult;
     let total, randomNumber;
     console.log('Request received at /getRandomAnime');
     //total count api
