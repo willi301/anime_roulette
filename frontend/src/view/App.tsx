@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Divider, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField/TextField';
 import { useState } from 'react';
 import { Controller, useForm } from "react-hook-form";
@@ -27,8 +27,7 @@ const App = () => {
     const {
         control,
         handleSubmit,
-        setValue,
-        formState: { errors },
+        formState: {},
     } = useForm<AppModel>({
         defaultValues: {
         genres: [],
@@ -67,7 +66,7 @@ const App = () => {
             <Controller
             name="genres"
             control={control}
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
+            render={({ field: { onChange, value }, fieldState: {} }) => (
                 <Autocomplete
                 multiple
                 disableCloseOnSelect
