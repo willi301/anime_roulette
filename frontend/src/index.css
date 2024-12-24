@@ -1,7 +1,23 @@
-body {
-     margin: 0;
-     display: flex;
-     place-items: center;
-     min-width: 320px;
-     min-height: 100vh;
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Ensure the html and body allow scrollable content */
+html, body {
+    height: 100%; /* Take up the full height of the viewport */
+    width: 100%;
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    background: linear-gradient(to right, #f88, #ffc); /* Optional background */
+    font-family: Arial, sans-serif; /* Optional default font */
+}
+
+/* Ensure the root element stretches with content */
+#root {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Allow the content to grow beyond the viewport */
 }

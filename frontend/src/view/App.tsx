@@ -1,15 +1,24 @@
-import { useState } from 'react'
-import { useEffect } from 'react';
+import { Autocomplete, Box, Button, Divider, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField/TextField';
-import { Autocomplete, Box, Button, Card, Chip, Divider, Typography } from '@mui/material';
+import { useState } from 'react';
 import { Controller, useForm } from "react-hook-form";
-import { AppModel } from '../type/AppModel';
 import { genreOptions } from '../constant/AppConstant';
-import Result from './Result';
 import useAppHandler from '../handler/useAppHandler';
+import { AppModel } from '../type/AppModel';
+import Result from './Result';
+import { AnimeResponse } from '../type/AnimeResponse';
+
+
 
 const App = () => {
     const [ isSubmit, setIsSubmit ] = useState<Boolean>(false);
+    const defaultObject: AnimeResponse = {
+        imageLink: '',
+        animeTitle: '',
+        score: 0,
+        synopsis: '',
+        link: '',
+    };
     const { 
         anime,
         fetchAnime 
@@ -36,11 +45,11 @@ const App = () => {
         <div style={{
             background: "linear-gradient(to right,rgb(255, 183, 197),rgb(248, 110, 138))",
             display: 'flex',
-            width: '100vw',
-            height: '100vh',
             flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center', 
+            alignItems: 'center',
+            padding: '20px',
+            minHeight: '100vh',
+            overflowY: 'auto',
         }}>
         <Typography variant="h1" color='white'>ANIME ROULETTE</Typography>
         
@@ -97,22 +106,15 @@ const App = () => {
                     label="Select some genres"
                     variant="standard"
                     sx={{
-                        // backgroundColor: '#F8BFD0',
                         '& .MuiInputBase-root, & .MuiFormLabel-root': {
-                        color: '#FFFFFF', // Input Text & Label
+                            color: '#FFFFFF',
                         },
-                        // '& .MuiFormLabel-root': {
-                        //   color: '#FFFFFF', // Label
-                        // },
                         '& .MuiInput-underline:before': {
-                        borderBottomColor: 'transparent', // Underline before focus
+                            borderBottomColor: 'transparent',
                         },
                         '& .MuiInput-underline:after, & .MuiInput-underline:hover:not(.Mui-disabled):before': {
-                        borderBottomColor: '#FFFFFF', // Underline on focus and hover
+                            borderBottomColor: '#FFFFFF',
                         },
-                        // '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
-                        //   borderBottomColor: '#FFFFFF', // Underline on hover
-                        // },
                     }}
                     />
                 )}
@@ -124,7 +126,7 @@ const App = () => {
             </Button>
         </form>
 
-        <Result isSubmit={isSubmit} anime={anime} />
+        <Result isSubmit={isSubmit} anime={anime != undefined ? anime : defaultObject}/>
         </div>
     )
 }

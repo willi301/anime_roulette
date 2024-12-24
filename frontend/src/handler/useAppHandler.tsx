@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAnimeApi from "../api/useAnimeAPI";
 import { AnimeResponse } from "../type/AnimeResponse";
 
