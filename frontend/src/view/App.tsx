@@ -29,7 +29,7 @@ const App = () => {
     const onSubmit = (data: AppModel) => {
         console.log("Form Data:", data);
         setIsSubmit(true);
-        fetchAnime();
+        fetchAnime(data.genres);
     };
 
     return (
