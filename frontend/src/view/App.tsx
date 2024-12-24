@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
 import TextField from '@mui/material/TextField/TextField';
-import { Autocomplete, Box, Button, Card, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, Card, Chip, Divider, Typography } from '@mui/material';
 import { Controller, useForm } from "react-hook-form";
-import { appModel } from '../type/AppModel';
+import { AppModel } from '../type/AppModel';
 import { genreOptions } from '../constant/AppConstant';
+import Result from './Result';
 
 const App = () => {
-  const [ isSubmit, setIsSubmit ] = useState<Boolean>(false);
+const [ isSubmit, setIsSubmit ] = useState<Boolean>(false);
 
   //anime object
   const[anime, setAnime] = useState({
@@ -82,96 +83,113 @@ const App = () => {
     handleSubmit,
     setValue,
     formState: { errors },
-} = useForm<appModel>({
-    // resolver: yupResolver(ASSIGN_DEALER_SCHEMA_VALIDATOR)
+} = useForm<AppModel>({
     defaultValues: {
-      genres: [],
+    genres: [],
     },
 });
 
-  const onSubmit = (data: appModel) => {
+const onSubmit = (data: AppModel) => {
     console.log("Form Data:", data);
     setIsSubmit(true);
     getAnime().then(() => console.log('API call complete'));
   };
 
-  return (
+return (
     <div style={{
-      background: "linear-gradient(to right,rgb(255, 183, 197),rgb(248, 110, 138))",
-      padding: '10px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center', 
+    background: "linear-gradient(to right,rgb(255, 183, 197),rgb(248, 110, 138))",
+    display: 'flex',
+    width: '100vw',
+    height: '100vh',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center', 
     }}>
-      <Typography variant="h1" color='white'>ANIME ROULETTE</Typography>
-      
-      <Box
+    <Typography variant="h1" color='white'>ANIME ROULETTE</Typography>
+    
+    <Box
         component="img"
         sx={{
-          width: '15%',
-          cursor: "pointer"
+        width: '15%',
+        cursor: "pointer"
         }}
         alt="The house from the offer."
         src="src\assets\cat.png"
-      />
+    />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
-          name="genres"
-          control={control}
-          rules={{ required: "This field is required" }}
-          render={({ field: { onChange, value }, fieldState: { error } }) => (
+        name="genres"
+        control={control}
+        render={({ field: { onChange, value }, fieldState: { error } }) => (
             <Autocomplete
-              multiple
-              options={genreOptions}
-              style={{ width: 300 }}
-              getOptionLabel={(option) => option.label}
-              value={genreOptions.filter((option) => value.includes(option.value))}
-              onChange={(event, newValue) => {
-                onChange(newValue.map((item) => item.value));
-              }}
-              renderInput={(params) => (
+            multiple
+            disableCloseOnSelect
+            disablePortal
+            options={genreOptions}
+            style={{ width: 300 }}
+            getOptionLabel={(option) => option.genre}
+            value={genreOptions.filter((option) => value.includes(option.id.toString()))}
+            onChange={(event, newValue) => {
+                onChange(newValue.map((item) => item.id.toString()));
+            }}
+            sx={{
+                mb: 5,
+                '& .MuiAutocomplete-popupIndicator, & .MuiAutocomplete-clearIndicator': {
+                color: '#FFFFFF', // Dropdown arrow and clear icon
+                },
+                '& .MuiAutocomplete-listbox': {
+                backgroundColor: '#21130d', // Dropdown background
+                color: '#FFFFFF', // Dropdown text
+                },
+                '& .MuiAutocomplete-option': {
+                backgroundColor: 'red', // Option background (light pink)
+                color: '#FFFFFF', // Option text color
+                '&:hover': {
+                    backgroundColor: '#E38CA3', // Highlight hovered option (darker pink)
+                },
+                },
+                '& .MuiAutocomplete-noOptions': { // No Options
+                backgroundColor: '#F8BFD0',
+                color: '#FFFFFF',
+                },
+            }}
+            renderInput={(params) => (
                 <TextField
-                  {...params}
-                  label="Select some genres"
-                  error={!!error}
-                  helperText={error?.message}
-                  InputProps={{
-                    ...params.InputProps,
-                    style: { backgroundColor: "white", color: "black" }, // Input field background and text color
-                  }}
+                {...params}
+                label="Select some genres"
+                variant="standard"
+                sx={{
+                    // backgroundColor: '#F8BFD0',
+                    '& .MuiInputBase-root, & .MuiFormLabel-root': {
+                    color: '#FFFFFF', // Input Text & Label
+                    },
+                    // '& .MuiFormLabel-root': {
+                    //   color: '#FFFFFF', // Label
+                    // },
+                    '& .MuiInput-underline:before': {
+                    borderBottomColor: 'transparent', // Underline before focus
+                    },
+                    '& .MuiInput-underline:after, & .MuiInput-underline:hover:not(.Mui-disabled):before': {
+                    borderBottomColor: '#FFFFFF', // Underline on focus and hover
+                    },
+                    // '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
+                    //   borderBottomColor: '#FFFFFF', // Underline on hover
+                    // },
+                }}
                 />
-              )}
+            )}
             />
-          )}
+        )}
         />
         <Button type="submit" variant="contained" color="primary">
-          Generate
+        Generate
         </Button>
-      </form>
-      {
-        isSubmit ? (
-          <Card>
-            <Box
-              component="img"
-              sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
-              }}
-              alt="The house from the offer."
-              src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&w=350&dpr=2"
-            />
-            <Typography>Title</Typography>
-            <Typography>Genre</Typography>
-            <Typography>Description</Typography>
-          </Card>
-        ) : <></>
-      }
+    </form>
+
+    <Result isSubmit={isSubmit} />
     </div>
-  )
+)
 }
 
 export default App
