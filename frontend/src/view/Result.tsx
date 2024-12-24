@@ -52,7 +52,8 @@ const Result: React.FC<ResultProps> = ({ isSubmit, anime }) => {
                                 </Box>
 
                                 <Typography variant="body2" color="text.secondary">
-                                    {anime.synopsis.length > 100 ? `${anime.synopsis.substring(0, 100)}...` : anime.synopsis}
+                                    {/* {anime.synopsis.length > 100 ? `${anime.synopsis.substring(0, 100)}...` : anime.synopsis} */}
+                                    {anime.synopsis}
                                 </Typography>
                             </CardContent>
 
