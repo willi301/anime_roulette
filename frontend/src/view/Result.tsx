@@ -6,6 +6,7 @@ import CardContent from '@mui/joy/CardContent';
 import CardOverflow from '@mui/joy/CardOverflow';
 import Divider from '@mui/joy/Divider';
 // import Typography from '@mui/joy/Typography';
+import React from 'react';
 
 interface ResultProps {
     anime: AnimeResponse;

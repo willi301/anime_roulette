@@ -9,9 +9,6 @@ import Result from './Result';
 import { AnimeResponse } from '../type/AnimeResponse';
 import React from 'react';
 
-
-
-
 const App = () => {
     const [ isSubmit, setIsSubmit ] = useState<Boolean>(false);
     const defaultObject: AnimeResponse = {
@@ -61,7 +58,7 @@ const App = () => {
             cursor: "pointer"
             }}
             alt="cat logo"
-            src="public/assets/cat.png"
+            src="/assets/cat.png"
         />
 
         <form onSubmit={handleSubmit(onSubmit)}>
