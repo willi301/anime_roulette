@@ -6,7 +6,7 @@ const app = express();
 const PORT = 3000;
 
 let corsOptions = {
-    origin : ['https://anime-roulette-five.vercel.app/'],
+    origin : '*'
  }
 // enabling CORS for any unknown origin(https://xyz.example.com)
 app.use(cors(corsOptions));
