@@ -2,7 +2,7 @@ const useAnimeApi = () => {
 
     const getAnime = async (genreList: String[]) => {
         try {
-            const response = await fetch('https://anime-roulette-backend.vercel.app//getRandomAnime', {
+            const response = await fetch('https://anime-roulette-backend.vercel.app/getRandomAnime', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
