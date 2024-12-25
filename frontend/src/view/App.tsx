@@ -59,7 +59,7 @@ const App = () => {
             cursor: "pointer"
             }}
             alt="cat logo"
-            src="../public/assets/cat.png"
+            src="public/assets/cat.png"
         />
 
         <form onSubmit={handleSubmit(onSubmit)}>
