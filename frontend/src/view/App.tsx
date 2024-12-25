@@ -55,9 +55,9 @@ const App = () => {
         <Typography variant="h1" color='white'>ANIME ROULETTE</Typography>
         
         <img
-             src="src\assets\cat.png"
-            loading="lazy"
-            alt="cat logo"
+            src="src\assets\cat.png"
+            // loading="lazy"
+            alt="cat logo not fix"
             style={{ width: '15%' }}
         />
         {/* <Box
