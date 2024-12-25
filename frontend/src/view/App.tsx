@@ -7,7 +7,7 @@ import useAppHandler from '../handler/useAppHandler';
 import { AppModel } from '../type/AppModel';
 import Result from './Result';
 import { AnimeResponse } from '../type/AnimeResponse';
-
+import React from 'react';
 
 
 const App = () => {
@@ -58,8 +58,8 @@ const App = () => {
             width: '15%',
             cursor: "pointer"
             }}
-            alt="The house from the offer."
-            src="src\assets\cat.png"
+            alt="cat logo"
+            src="/assets/cat.png"
         />
 
         <form onSubmit={handleSubmit(onSubmit)}>

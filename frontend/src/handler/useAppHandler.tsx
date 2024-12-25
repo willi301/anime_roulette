@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAnimeApi from "../api/useAnimeAPI";
+import useAnimeApi from "../api/useAnimeApi";
 import { AnimeResponse } from "../type/AnimeResponse";
 
 const useAppHandler = () => {
