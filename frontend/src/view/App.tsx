@@ -54,21 +54,15 @@ const App = () => {
         }}>
         <Typography variant="h1" color='white'>ANIME ROULETTE</Typography>
         
-        <img
-            src="src\assets\cat.png"
-            // loading="lazy"
-            alt="cat logo not fix"
-            style={{ width: '15%' }}
-        />
-        {/* <Box
+        <Box
             component="img"
             sx={{
             width: '15%',
             cursor: "pointer"
             }}
-            alt="cat logo."
-            src="src\assets\cat.png"
-        /> */}
+            alt="cat logo"
+            src="public/assets/cat.png"
+        />
 
         <form onSubmit={handleSubmit(onSubmit)}>
             <Controller
