@@ -9,6 +9,7 @@ import Result from './Result';
 import { AnimeResponse } from '../type/AnimeResponse';
 import React from 'react';
 
+
 const App = () => {
     const [ isSubmit, setIsSubmit ] = useState<Boolean>(false);
     const defaultObject: AnimeResponse = {
