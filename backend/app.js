@@ -82,6 +82,10 @@ app.post('/getRandomAnime', async (req, res)=>{
         //get anime detail based on the mal_id
         const response2 = await axios.get(`https://api.jikan.moe/v4/anime?genres=${genreid}&limit=1&page=${randomNumber}`);
 
+        const genres = response2.data.data[0].genres;
+        const genresId = genres.map(id => id.mal_id);
+        console.log(genresId);
+
         //put relevant detail to an object
         const animeDetail = {
             //since response is an array data needs to pick the 0 index
@@ -89,7 +93,8 @@ app.post('/getRandomAnime', async (req, res)=>{
             animeTitle: response2.data.data[0].title,
             score: response2.data.data[0].score,
             synopsis: response2.data.data[0].synopsis,
-            link: response2.data.data[0].url
+            link: response2.data.data[0].url,
+            genreArray: genresId
         };
         
 
