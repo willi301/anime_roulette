@@ -13,13 +13,13 @@ app.use(cors(corsOptions));
 
 //example on how to receive request and use the request
 app.use(express.json());
-app.post('/', (req, res)=>{
+app.get('/', (req, res)=>{
     const {name} = req.body;
     
     res.send(`Welcome ${name}`);
 })
 
-app.post('/test', (req, res)=>{
+app.get('/test', (req, res)=>{
     res.json({message: "this connects"});
 })
 
