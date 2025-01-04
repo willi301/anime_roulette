@@ -94,7 +94,7 @@ app.post('/getRandomAnime', async (req, res)=>{
             score: response2.data.data[0].score,
             synopsis: response2.data.data[0].synopsis,
             link: response2.data.data[0].url,
-            genreArray: genresId
+            genreList: genresId
         };
         
 

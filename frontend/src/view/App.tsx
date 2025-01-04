@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, CircularProgress, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField/TextField';
 import { useState } from 'react';
 import { Controller, useForm } from "react-hook-form";
@@ -9,7 +9,6 @@ import Result from './Result';
 import { AnimeResponse } from '../type/AnimeResponse';
 import React from 'react';
 
-
 const App = () => {
     const [ isSubmit, setIsSubmit ] = useState<Boolean>(false);
     const defaultObject: AnimeResponse = {
@@ -18,10 +17,12 @@ const App = () => {
         score: 0,
         synopsis: '',
         link: '',
+        genreList: [],
     };
     const { 
         anime,
-        fetchAnime 
+        fetchAnime,
+        isLoading
     } = useAppHandler();
 
     const {
@@ -68,64 +69,61 @@ const App = () => {
             control={control}
             render={({ field: { onChange, value }, fieldState: {} }) => (
                 <Autocomplete
-                multiple
-                disableCloseOnSelect
-                disablePortal
-                options={genreOptions}
-                style={{ width: 300 }}
-                getOptionLabel={(option) => option.genre}
-                value={genreOptions.filter((option) => value.includes(option.id.toString()))}
-                onChange={(event, newValue) => {
-                    onChange(newValue.map((item) => item.id.toString()));
-                }}
-                sx={{
-                    mb: 5,
-                    '& .MuiAutocomplete-popupIndicator, & .MuiAutocomplete-clearIndicator': {
-                    color: '#FFFFFF', // Dropdown arrow and clear icon
-                    },
-                    '& .MuiAutocomplete-listbox': {
-                    backgroundColor: '#21130d', // Dropdown background
-                    color: '#FFFFFF', // Dropdown text
-                    },
-                    '& .MuiAutocomplete-option': {
-                    backgroundColor: 'red', // Option background (light pink)
-                    color: '#FFFFFF', // Option text color
-                    '&:hover': {
-                        backgroundColor: '#E38CA3', // Highlight hovered option (darker pink)
-                    },
-                    },
-                    '& .MuiAutocomplete-noOptions': { // No Options
-                    backgroundColor: '#F8BFD0',
-                    color: '#FFFFFF',
-                    },
-                }}
-                renderInput={(params) => (
-                    <TextField
-                    {...params}
-                    label="Select some genres"
-                    variant="standard"
+                    multiple
+                    disableCloseOnSelect
+                    disablePortal
+                    options={genreOptions}
+                    style={{ width: 300 }}
+                    getOptionLabel={(option) => option.genre}
+                    value={genreOptions.filter((option) => value.includes(option.id.toString()))}
+                    onChange={(event, newValue) => {
+                        onChange(newValue.map((item) => item.id.toString()));
+                    }}
                     sx={{
-                        '& .MuiInputBase-root, & .MuiFormLabel-root': {
-                            color: '#FFFFFF',
+                        mb: 5,
+                        '& .MuiAutocomplete-popupIndicator, & .MuiAutocomplete-clearIndicator': {
+                            color: '#FFFFFF', // Dropdown arrow and clear icon
                         },
-                        '& .MuiInput-underline:before': {
-                            borderBottomColor: 'transparent',
-                        },
-                        '& .MuiInput-underline:after, & .MuiInput-underline:hover:not(.Mui-disabled):before': {
-                            borderBottomColor: '#FFFFFF',
+                        '& .MuiChip-root': { 
+                            backgroundColor: '#f0f0f0', // Background color of the tag
+                            color: '#333', // Text color of the tag
                         },
                     }}
-                    />
-                )}
+                    renderInput={(params) => (
+                        <TextField
+                        {...params}
+                        label="Select some genres"
+                        variant="standard"
+                        sx={{
+                            '& .MuiInputBase-root, & .MuiFormLabel-root': {
+                                color: '#FFFFFF',
+                            },
+                            '& .MuiInput-underline:before': {
+                                borderBottomColor: 'transparent',
+                            },
+                            '& .MuiInput-underline:after, & .MuiInput-underline:hover:not(.Mui-disabled):before': {
+                                borderBottomColor: '#FFFFFF',
+                            },
+                        }}
+                        />
+                    )}
                 />
-            )}
+                )}
             />
-            <Button type="submit" variant="contained" color="primary">
-                Generate
-            </Button>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Button type="submit" variant="contained" color="primary" sx={{ backgroundColor: 'white', color: 'black' }}>
+                    Generate
+                </Button>
+            </Box>
         </form>
 
-        <Result isSubmit={isSubmit} anime={anime != undefined ? anime : defaultObject}/>
+        {isLoading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 5 }}>
+                    <CircularProgress sx={{ color: 'white' }} />
+                </Box>
+            ) : (
+                <Result isSubmit={isSubmit} anime={anime != undefined ? anime : defaultObject} />
+        )}
         </div>
     )
 }
