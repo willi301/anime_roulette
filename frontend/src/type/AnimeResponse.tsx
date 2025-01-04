@@ -4,4 +4,5 @@ export interface AnimeResponse {
     link: string;
     score: GLfloat;    
     synopsis: string;
+    genreList: number[];
 }
