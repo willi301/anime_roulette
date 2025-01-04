@@ -46,21 +46,29 @@ const Result: React.FC<ResultProps> = ({ isSubmit, anime }) => {
                         <Card
                             sx={{
                                 maxWidth: 500,
-                                boxShadow: 3,
+                                // boxShadow: 3,
                                 borderRadius: 2,
                                 margin: 'auto',
                                 background: '#ffffff',
+                                boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.2)',
+                                transform: 'translateY(0)',
+                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                                '&:hover': {
+                                    transform: 'translateY(-10px)',
+                                    boxShadow: '0px 15px 25px rgba(0, 0, 0, 0.3)',
+                                },
                             }}
                         >
                             <CardOverflow>
                                 <AspectRatio ratio="1">
-                                <img
-                                    src={anime.imageLink}
-                                    loading="lazy"
-                                    alt=""
-                                />
+                                    <img
+                                        src={anime.imageLink}
+                                        loading="lazy"
+                                        alt=""
+                                    />
                                 </AspectRatio>
                             </CardOverflow>
+
                             <CardContent>
                                 <Typography variant="h6" gutterBottom>
                                     {anime?.animeTitle}
@@ -68,9 +76,16 @@ const Result: React.FC<ResultProps> = ({ isSubmit, anime }) => {
 
                                 <Box display="flex" alignItems="center" mb={1}>
                                     <Rating value={anime.score / 2} precision={0.5} readOnly />
-                                    <Typography variant="body2" ml={1}>
-                                        { anime.score ? anime.score.toFixed(1) : 0} / 10
-                                    </Typography>
+                                    { anime.score ? 
+                                        <Typography variant="body2" ml={1}>
+                                            {anime.score.toFixed(1)} / 10
+                                        </Typography> 
+                                        : 
+                                        <Typography variant="body2" ml={1}>
+                                            No Rating
+                                        </Typography> 
+                                    }
+                                    
                                 </Box>
 
                                 <Box display="flex" alignItems="center" mb={1} flexWrap="wrap" gap={1}>
