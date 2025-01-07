@@ -8,6 +8,9 @@ import { AppModel } from '../type/AppModel';
 import Result from './Result';
 import { AnimeResponse } from '../type/AnimeResponse';
 import React from 'react';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import EmailIcon from '@mui/icons-material/Email';
+import { IconButton } from '@mui/material';
 
 const App = () => {
     const [ isSubmit, setIsSubmit ] = useState<Boolean>(false);
@@ -47,7 +50,7 @@ const App = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            padding: '20px',
+            padding: '0px',
             minHeight: '100vh',
             overflowY: 'auto',
         }}>
@@ -124,6 +127,71 @@ const App = () => {
             ) : (
                 <Result isSubmit={isSubmit} anime={anime != undefined ? anime : defaultObject} />
         )}
+
+
+
+
+        {/* footer code */}
+        <Box
+            //css for main footer box
+            sx={{
+                width: '100%',
+                position: 'relative',
+                backgroundColor: 'pink',
+                display: 'flex',
+                marginTop: 'auto', // This pushes the footer to the bottom
+                height: '60px', // Optional: Set a fixed height for the footer
+            }}
+        >
+
+            <Box
+                component="img"
+                sx={{
+                width: '3%',
+                cursor: "pointer"
+                }}
+                alt="Pauss production logo"
+                src="/assets/paussProd.jpg"
+            />
+
+            {/* box for footer detail */}
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    width: '100%',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                }}
+            >
+                <Box>
+                    Contact Us
+                </Box>
+
+                <Box 
+                    sx={{
+                        display: 'flex'
+                    }}
+                >
+                    <EmailIcon></EmailIcon>
+                    <Box>
+                        paussProd@gmail.com
+                    </Box>
+                </Box>
+                
+                
+
+                <IconButton 
+                    href="https://www.linkedin.com/company/pauss-prod/"
+                >
+                    <LinkedInIcon></LinkedInIcon>
+                </IconButton>
+            </Box>
+
+            
+        </Box>
+        
+
         </div>
     )
 }
